@@ -15,6 +15,7 @@ parser.add_argument('-l','--lenguaje',help="Idioma a buscar",required=False)
 args=parser.parse_args()
 
 # Inicializar y buscar la serie
+#TODO: Gestionar excepciones en caso de no encontrar la serie
 if args.lenguaje:
     t = tvdb_api.Tvdb(language=args.lenguaje)
 else:
@@ -30,13 +31,14 @@ for temporada in serie:
     for episodio in serie[temporada]:
         title=serie[temporada][episodio]['episodename']
         if title: lista[title]={"season":temporada,"episode":episodio}
-#print lista
-#print len(lista)
 
+# Procesar todos los ficheros que se han pasado como parámetro
 for fich in args.fichero:
     # Buscar capítulo más parecido
     nombrelimpio=os.path.splitext(os.path.basename(fich))[0].lower()
     results=process.extract(nombrelimpio,lista.keys(),limit=5)
+
+    # Mostrar menú con los mejores candidatos
     optselected=False
     while not optselected:
         print
@@ -56,9 +58,9 @@ for fich in args.fichero:
             optselected=True
         if int(sel) in range(len(results)+1):
             optselected=True
-            break
         if not optselected: print "Opción incorrecta"
 
+    # Si no se ha pulsado salir, renombramos
     if int(sel)>0:
         titsel=results[int(sel)-1][0]
         nomorig=os.path.basename(fich)
