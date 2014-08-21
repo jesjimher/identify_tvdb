@@ -12,3 +12,10 @@ Por ejemplo, el siguiente comando:
 Renombraría el fichero "lost.s01e03.x264.mkv" a "Lost - S01E03 - Tabula Rasa.mkv".
 
 Adicionalmente, se puede indicar un idioma concreto con el parámetro "-l". Ejecutar con la opción -h para ver todas las opciones.
+
+identify_tvdb no requiere de librerías demasiado sofisticadas. Sólo usa dos un poco especiales:
+
+- tvdb_api: Para acceder y consultar thetvdb.com
+- fuzzywuzzy: Para hacer búsquedas y encontrar los episodios
+
+Las dos se pueden instalar fácilmente desde los repositorios de Ubuntu (o equivalente), o con "pip install XXX".
